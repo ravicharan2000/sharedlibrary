@@ -8,12 +8,12 @@ def buildArtifact()
     sh'mvn package'
 }
 
-def tomcatDeploy(jobname,ip,context)
+def tomcatDeploy(ip,context)
 {
-    sh "scp /var/lib/jenkins/workspace/${jobname}/webapp/target/webapp.war ubuntu@${ip}:/var/lib/tomcat10/webapps/${context}.war"
+    sh "scp ${env.WORKSPACE}/webapp/target/webapp.war ubuntu@${ip}:/var/lib/tomcat10/webapps/${context}.war"
 }
 
-def executeSelenium(jobname)
+def executeSelenium()
 {
-    sh "java -jar /var/lib/jenkins/workspace/${jobname}/testing.jar"
+    sh "java -jar ${env.WORKSPACE}/testing.jar"
 }
